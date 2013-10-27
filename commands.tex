@@ -1,0 +1,210 @@
+\usepackage[nomessages]{fp}
+\usepackage{multido}
+\usepackage{pstricks}
+\usepackage{caption}
+\usepackage{xstring}
+\usepackage{stringstrings}
+\usepackage{ifthen}
+
+\linethickness{0.01mm}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}%
+
+\newcommand{\FPmodulo}[2]{%
+  \FPeval{\modulo}{trunc(#1-(#2*trunc(#1/#2,0)),0)}%
+}%
+
+\newcommand{\note}[1]{%
+  \FPmodulo{#1}{12}%
+  \FPeval{\noteposition}{trunc(\modulo,0)}%
+  \substring[v]{CCDDEFFGGAAH}{\noteposition}{\noteposition}%
+  \IfEq{\noteposition}{2}{$^\#$}{%
+    \IfEq{\noteposition}{4}{$^\#$}{%
+      \IfEq{\noteposition}{7}{$^\#$}{%
+        \IfEq{\noteposition}{9}{$^\#$}{}%
+          \IfEq{\noteposition}{11}{$^\#$}{}}}}%
+  \ignorespaces%
+}%
+
+\newcommand{\fretnote}[2]{%
+  \FPeval{\noteposition}{trunc(#2 + #1*5 - trunc(#1/4,0) + 1,0)}%
+  \FPmodulo{(\noteposition)}{12}%
+  \FPeval{\noteposition}{trunc(\modulo,0)}%
+  \substring[v]{EFFGGAAHCCDD}{\noteposition}{\noteposition}%
+  \IfEq{\noteposition}{3}{$^\#$}{%
+    \IfEq{\noteposition}{5}{$^\#$}{%
+      \IfEq{\noteposition}{7}{$^\#$}{%
+        \IfEq{\noteposition}{10}{$^\#$}{}%
+          \IfEq{\noteposition}{0}{$^\#$}{}}}}%
+  \ignorespaces%
+}%
+
+\newcommand{\chordcircle}[2]{%
+  \begin{pspicture}(3.5cm,3.5cm)%
+  \def\cx{0}%
+  \def\cy{5}%
+  \def\outercircle{1.5}%
+  \def\rnotecircle{0.23}%
+  \FPeval{\innercircle}{\outercircle-\rnotecircle*2}%
+  \pscircle[fillstyle=solid,linewidth=0.01,linecolor=black](\cx,\cy){\outercircle}%
+  \pscircle[fillstyle=solid,linewidth=0.01,linecolor=black](\cx,\cy){\innercircle}%
+  \multido{\i=270+30,\r=0+1 }{24}{%
+    \FPeval{\z}{trunc(\r+1,0)}%
+    \substring[q]{#1}{\z}{\z}%
+    \FPeval{\octave}{\outercircle-trunc(\r/12, 0)*\rnotecircle*2}%
+    \IfEq{\thestring}{.}{%
+    \rput{-\i}(\cx,\cy){%
+      \rput(\octave,0){%
+        \pscircle[fillstyle=solid,linewidth=0.01,fillcolor=black]{0.05}%
+      }%
+    }%
+    }{% 
+      \rput{-\i}(\cx,\cy){%
+        \rput(\octave,0){%
+          \pscircle[fillstyle=solid,linewidth=0.01,linecolor=black]{\rnotecircle}%
+        }%
+      }%
+      \rput{-\i}(\cx,\cy){%
+        \rput{\i}(\octave,0){%
+          \textbf{\tiny{\note{\z}}}%
+        }%
+      }%
+    }%
+  }%
+  \normalfont{%
+  \textbf{%
+  \rput(\cx,\cy){$#2$}}}%
+  \end{pspicture}%
+  \hspace*{8mm}%
+  \vspace*{0.3mm}%
+}%
+
+\newcommand{\chordtable}[3]{%
+  \begin{pspicture}(5cm,5cm)%
+  \def\w{2.7}%
+  \def\h{3.3}%
+  \FPeval{\dw}{\w/5}%
+  \FPeval{\dh}{\h/5}%
+  \FPeval{\nx}{\w/2}%
+  \FPeval{\ny}{\h+\dh/2}%
+  \rput(\nx,\ny){$#1$}%
+  \FPeval{\nx}{\dw/-0.3}%
+  \FPeval{\ny}{\dh*5}%
+  \rput(\nx,\ny){\small $#2$}%
+  \multido{\i=0+1}{6}{%
+    \FPeval{\cx}{\i*\dw}%
+    \FPeval{\cy}{\i*\dh}%
+    \psline[linewidth=0.01](\cx,0)(\cx,\h)%
+    \psline[linewidth=0.01](0,\cy)(\w,\cy)%
+  }%
+  \multido{\i=0+1}{30}{%
+    \FPmodulo{\i}{6}%
+    \FPeval{\st}{trunc(\modulo,0)}%
+    \FPeval{\fr}{trunc(\i/6,0)}%
+    \FPeval{\xpos}{\st*\dw}%
+    \FPeval{\ypos}{4.5*\dh-\fr*\dh}%
+    \FPeval{\fr}{trunc(#2 + \fr,0)}%
+    \FPeval{\spos}{trunc(\i+1,0)}
+    \substring[q]{#3}{\spos}{\spos}%
+    \IfEq{\thestring}{.}{}{%
+      \FPeval{\yu}{\ypos-\dh/4}%
+      \FPeval{\yl}{\ypos+\dh/4}%
+      \FPeval{\xs}{\xpos-\dw/2}%
+      \FPeval{\xe}{\xpos+\dw/2}%
+      \psframe[fillstyle=solid,fillcolor=white,linecolor=white](\xs,\yu)(\xe,\yl)%
+      \IfEq{\thestring}{-}{%
+        \psline[linewidth=0.03](\xs,\yu)(\xe,\yu)%
+        \psline[linewidth=0.03](\xs,\yl)(\xe,\yl)%
+      }{%
+        \IfEq{\thestring}{X}{%
+          \rput(\xpos,\ypos){X}%
+        }{%
+          \rput(\xpos,\ypos){\small\textbf{\thestring}\tiny\fretnote{\st}{\fr}}%
+          \psline[linewidth=0.03](\xs,\yu)(\xe,\yu)%
+          \psline[linewidth=0.03](\xs,\yl)(\xe,\yl)%
+        }%
+      }%
+    }%
+  }%
+  \end{pspicture}%
+  \hspace*{8mm}%
+  \vspace*{0.3mm}%
+}%
+
+\newcommand{\fretboard}[3]%
+{%
+  \begin{pspicture}(\linewidth,2.5cm)%
+  \def\frets{16}%
+  \def\dx{1.0}%
+  \def\dy{0.4}%
+  \def\disp{0.3}%
+  \FPeval{\midy}{\dy * 2}%
+  \FPeval{\notes}{trunc(\frets * 6,0)}%
+  \FPeval{\sys}{0 - \dy/2 - 0.05}%
+  \FPeval{\sye}{5*\dy - \dy/2 + 0.05}%
+  \FPeval{\sxs}{\dx - \disp}%
+  \multido{\i=0+1}{\frets}{%
+    \FPeval{\sxs}{\i*\dx + \dx - \disp}%
+    \psline[linewidth=0.01](\sxs,\sys)(\sxs,\sye)% 
+    \ifthenelse{\equal{\i}{5}}{%
+      \FPeval{\dotx}{\sxs - \dx*0.5}%
+      \pscircle[fillstyle=solid, fillcolor=gray, linecolor=gray](\dotx,\midy){0.1}%
+    }{}%
+    \ifthenelse{\equal{\i}{7}}{%
+      \FPeval{\dotx}{\sxs - \dx*0.5}%
+      \pscircle[fillstyle=solid, fillcolor=gray, linecolor=gray](\dotx,\midy){0.1}%
+    }{}%
+    \ifthenelse{\equal{\i}{0}}{%
+      \psline[linewidth=0.06](\sxs,\sys)(\sxs,\sye)% 
+    }{}%
+    \ifthenelse{\equal{\i}{12}}%
+    {%
+      \psline[linewidth=0.06](\sxs,\sys)(\sxs,\sye)% 
+    }{}%
+  }%
+  \multido{\i=0+1}{6}%
+  {%
+    \FPeval{\sys}{\i*\dy - \dy/2}%
+    \FPeval{\str}{0.04 - \i*0.005}%
+    \psline[linewidth=0.01](0,\sys)(\textwidth,\sys)%
+  }%
+  \multido{\i=0+1}{\notes}%
+  {%
+    \FPmodulo{(\i)}{\frets}%
+	\FPeval{\disp}{trunc(\frets*(5-trunc(\i/\frets,0)) + \modulo + 1,0)}%
+    \substring[q]{#3}{\disp}{\disp}%
+    \FPmodulo{(\i)}{\frets}%
+    \IfEq{\thestring}{.}{}%
+    {%
+	  \FPeval{\fre}{\modulo}%
+	  \FPeval{\stri}{trunc(\i/\frets,0)}%
+	  \FPeval{\xc}{\dx*\fre + 0.05}%
+	  \FPeval{\yc}{\dy*(\stri - \dy/2)}%
+      \rput[tl](\xc,\yc){%
+        \psframebox[fillstyle=solid,linecolor=white,framesep=0]{%
+          \IfEq{\thestring}{x}{%
+            \fretnote{\stri}{\fre}
+          }{%
+            \small\textbf{\thestring}\tiny\fretnote{\stri}{\fre}%
+          }%
+        }%
+      }%
+    }%
+  }%
+  \end{pspicture}~\\%
+  \ifthenelse{\equal{#1}{}}{}{%
+    \ifthenelse{\equal{#2}{}}{%
+      #1%
+      \vspace{0.2cm}~\\%
+    }{%
+      \vspace{-0.8cm}%
+      \captionof{figure}{#1}%
+      \label{#2}%
+      \vspace{0.3cm}%
+    }%
+  }%
+}%
+
+\newcommand{\ideasubsection}[1]{%
+  \subsection*{\includegraphics[width=5mm]{./images/idea.pdf}~~#1}
+}

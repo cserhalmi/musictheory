@@ -1,0 +1,62 @@
+% packed itemization
+\newenvironment{pitemize}%
+{%
+  \begin{longtable}[l]{lllllllllllllllllll}%
+}%
+{%
+  \end{longtable}%
+}%
+
+% packed enumeration
+\newenvironment{penumerate}%
+{%
+  \begin{enumerate}[leftmargin=0.5cm]%
+  \setlength{\itemsep}{1pt}%
+  \setlength{\parskip}{0pt}%
+  \setlength{\parsep}{0pt}%
+}%
+{%
+  \end{enumerate} %
+}%
+
+% chord type table
+\newenvironment{chords}[1]%
+{
+  \begin{longtable}[l]{|p{40mm}|p{15mm}||p{5mm}|p{5mm}|p{5mm}|p{5mm}|p{5mm}|p{5mm}|p{5mm}|p{5mm}|p{5mm}|p{5mm}|p{5mm}|p{5mm}|} %
+  \hline %
+  \textbf{#1} & \textbf{Jel} & p & k2 & n2 & k3 & n3 & t4 & sz5 & t5 & k6 & n6 & k7 & n7 \\ %
+  \hline %
+  \endhead %
+}%
+{%
+  \hline %
+  & \textbf{Jel} & p & k2 & n2 & k3 & n3 & t4 & sz5 & t5 & k6 & n6 & k7 & n7 \\ %
+  \hline %
+  \end{longtable} %
+}%
+
+% section excercises
+\newenvironment{practices}%
+{%
+  \subsection*{\includegraphics[width=5mm]{./images/guitar.pdf}~~Gyakorlatok}%
+  \begin{penumerate} %
+}%
+{%
+  \end{penumerate} %
+}%
+
+% Music notation
+\def \aisz{$A^\#$}
+\def \gisz{$G^\#$}
+\def \cisz{$C^\#$}
+\def \disz{$D^\#$}
+\def \fisz{$F^\#$}
+\def \asz{$A^b$}
+\def \bebe{$B^b$}
+\def \desz{$D^b$}
+\def \esz{$E^b$}
+\def \gesz{$G^b$}
+\def \sdim{\oslash}
+\def \dim{{\Huge O}}
+\def \sst{$\frac{1}{2}$}
+%\def \s{\cellcolor[gray]{0.9}}

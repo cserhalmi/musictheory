@@ -1,0 +1,14 @@
+*.log
+*.glo
+*.idx
+*.out
+*.toc
+*.aux
+*-pics.pdf
+*.acn
+*~
+*.ist
+*.xdy
+*.lof
+*.gz
+
