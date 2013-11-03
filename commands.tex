@@ -8,6 +8,13 @@
 
 \linethickness{0.01mm}
 
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}%
 
 \newcommand{\FPmodulo}[2]{%

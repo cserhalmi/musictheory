@@ -7,8 +7,8 @@
 \input{./titlepage.tex}
 
 \tableofcontents
-\clearpage
 
+\clearpage
 \section*{Bevezetés}
 \label{sec:bevezetes}
 \input{./introduction.tex}
@@ -37,22 +37,33 @@
 \label{sec:alteracio}
 \input{./scalealteration.tex}
 
+\clearpage
 \section{Példák}
 \label{sec:peldak}
 \input{./ex_harmony.tex}
 
-\section{Ábrajegyzék}
-\label{app:abrajegyzek}
+\clearpage
+\phantomsection
+\label{sec:abrajegyzek}
+\addcontentsline{toc}{section}{\listfigurename}
 \listoffigures
 
-\section{Szószedet}
-\label{app:szoszedet}
-\input{./glossary.tex}
-\printglossaries
+\clearpage
+\phantomsection
+\label{sec:tablajegyzek}
+\addcontentsline{toc}{section}{\listtablename}
+\listoftables
 
-\section{Melléklet}
+\clearpage
+\phantomsection
+\label{sec:targymutato}
+\addcontentsline{toc}{section}{\indexname}
+\printindex
+
+\clearpage
+\phantomsection
 \label{sec:melleklet}
-\input{./app_scalechords.tex}
-%\input{./appendix.tex}
+\addcontentsline{toc}{section}{\appendixname}
+\input{./appendix.tex}
 
 \end{document}

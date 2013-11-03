@@ -1,7 +1,13 @@
 \documentclass[a4paper,11pt]{article}
-\renewcommand*{\familydefault}{\sfdefault}
 \pagenumbering{arabic}
+
+\renewcommand*{\familydefault}{\sfdefault}
+\renewcommand\footnotemark{}
+\renewcommand\footnoterule{}
+
 \setlength{\parindent}{0mm}
+\setlength{\skip\footins}{0mm}
+\setlength{\footnotesep}{0mm}
 
 \usepackage[utf8]{inputenc} 
 \usepackage[inner=20mm,outer=20mm,top=10mm,bottom=20mm,marginparsep=2mm,marginparwidth=8mm]{geometry} 
@@ -21,8 +27,8 @@
 \usepackage{xstring}
 \usepackage{stringstrings}
 \usepackage{ifthen}
-\usepackage[acronym, toc]{glossaries} % make a separate list of acronyms
 \usepackage{xspace}
+\usepackage{makeidx}
 
 \makeindex
-\makeglossaries
+
