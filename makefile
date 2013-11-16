@@ -1,17 +1,19 @@
-all: zeneelmélet.pdf
+SOURCES:=$(wildcard appendix/*.tex)
+TARGETS:=$(patsubst %.tex,%.pdf,$(SOURCES))
+TEMPORARY:=*.ind *.dvi *.glo *.lot *.idx *.lof \
+	   *.log *.aux *.xdy *.idx *.ilg *.ist \
+	   *.acn *.toc *.out *.pdf *.gen *.gz *.*~
+TEMPORARY+=$(patsubst %,appendix/%,$(TEMPORARY))
+
+all: musictheory.pdf
 
 clean:
-	rm zeneelmélet.dvi
-	rm zeneelmélet.pdf
+	@echo cleaning up...
+	@-rm -f $(TEMPORARY)
 
-zeneelmélet.pdf: zeneelmélet.tex
-	pdflatex -synctex=1 -interaction=nonstopmode $<
+musictheory.pdf: $(TARGETS)
 
-#zeneelmélet.pdf: zeneelmélet.dvi
-#	pdflatex -synctex=1 -interaction=nonstopmode $<
-
-
-zeneelmélet.dvi: zeneelmélet.tex makrok/environments.tex
-	latex $<
-	latex $<
-	latex $<
+%.pdf: %.tex
+	@echo compiling $<...
+	@cd $(dir $<); pdflatex -shell-escape -synctex=1 -interaction=nonstopmode $(notdir $(basename $<)).tex >$(notdir $(basename $<)).txt 2>$(notdir $(basename $<)).err
+	touch musictheory.tex

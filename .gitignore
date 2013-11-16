@@ -11,4 +11,11 @@
 *.xdy
 *.lof
 *.gz
+*.txt
+*.wav
+*.gpx
+*.backup
+*.lot
+*.gen
+*.err
 

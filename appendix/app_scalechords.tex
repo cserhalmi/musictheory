@@ -1,0 +1,131 @@
+\input{../preamble.tex} 
+\input{../commands.tex} 
+\pagestyle{empty}
+\begin{document}
+\newcommand\noterow[9]{%
+  \footnotesize #1 & \footnotesize #2 & \key{#3} & \key{#4} & \key{#5} & \key{#6} & \key{#7} & \key{#8} & \key{#9} \\[-0.2ex]
+}
+\vspace*{\fill}
+\phantomsection
+\subsection*{Skálák fokaira épülő hangzatok}
+\label{sec:skalaakkordok}
+\begin{tabular}{ll|p{18mm}p{17mm}p{18mm}p{17mm}p{18mm}p{17mm}p{18mm}}
+\multicolumn{2}{l|}{Hangköz} & I & II & III & IV & V & VI & VII \\ \hline
+\noterow{p }{   }{C }{D }{E }{F }{G }{A }{H }
+\noterow{k2}{k9 }{  }{  }{f }{  }{  }{  }{c }
+\noterow{n2}{n9 }{d }{e }{  }{g }{a }{h }{  }
+\noterow{k3}{k10}{  }{F }{G }{  }{  }{C }{D }
+\noterow{n3}{n10}{E }{  }{  }{A }{H }{  }{  }
+\noterow{t4}{t11}{f }{g }{a }{  }{c }{d }{e }
+\noterow{b4}{b11}{  }{  }{  }{h }{  }{  }{F }
+\noterow{t5}{t12}{G }{A }{H }{C }{D }{E }{  }
+\noterow{k6}{k13}{  }{  }{c }{  }{  }{f }{g }
+\noterow{n6}{n13}{a }{h }{  }{d }{e }{  }{  }
+\noterow{k7}{   }{  }{C }{D }{  }{F }{G }{A }
+\noterow{n7}{   }{H }{  }{  }{E }{  }{  }{  } \hline
+\multicolumn{2}{l|}{Hangzat} & \\ \hline
+\multicolumn{2}{l|}{Hármas} &
+\chord{C}{  } & \chord{D}{m} & \chord{E}{m} & \chord{F}{  } & \chord{G}{  } & \chord{A}{m} & \chord{H}{O} \\[0.5ex]
+\multicolumn{2}{l|}{Négyes} &
+\chord{C}{maj7} & \chord{D}{m7} & \chord{E}{m7} & \chord{F}{maj7} & \chord{G}{7} & \chord{A}{m7} & \chord{H}{o} \\[0.5ex]
+\multicolumn{2}{l|}{Ötös} &
+\chord{C}{maj9} & \chord{D}{m9} & \chord{E}{m9b} & \chord{F}{maj9} & \chord{G}{9} & \chord{A}{m9} & \chord{H}{o9b} \\[0.5ex]
+\multicolumn{2}{l|}{Hatos} &
+\chord{C}{maj11b} & \chord{D}{m11b} & \chord{E}{m11b(9b)} & \chord{F}{maj11} & \chord{G}{11b} & \chord{A}{m11b} &  \chord{H}{o11b(9b)} \\[0.5ex]
+\multicolumn{2}{l|}{Hetes} &
+\chord{C}{maj13(11b)} & \chord{D}{m13(11b)} & \chord{E}{m13b(9b11b)} & \chord{F}{maj13} & \chord{G}{13(11b)} & \chord{A}{m13b(11b)} & \chord{H}{o13b(9b11b)} \\
+\end{tabular}
+\captionof{table}{A dúr skála fokaira épülő akkordok} 
+\label{fig:durskalahangzatok}~\\\\\\
+
+\begin{tabular}{ll|p{18mm}p{17mm}p{18mm}p{17mm}p{18mm}p{17mm}p{18mm}}
+\multicolumn{2}{l|}{Hangköz} & I & II & III & IV & V & VI & VII \\ \hline
+\noterow{p }{   }{A }{H }{C }{D }{E }{F }{Gs}
+\noterow{k2}{k9 }{  }{c }{  }{  }{f }{  }{a }
+\noterow{n2}{n9 }{h }{  }{d }{e }{  }{  }{  }
+\noterow{k3}{k10}{C }{D }{  }{F }{  }{gs}{H }
+\noterow{n3}{n10}{  }{  }{E }{  }{Gs}{A }{c }
+\noterow{t4}{t11}{d }{e }{f }{  }{a }{  }{  }
+\noterow{b4}{b11}{  }{F }{  }{gs}{  }{h }{D }
+\noterow{t5}{t12}{E }{  }{  }{A }{H }{C }{  }
+\noterow{k6}{k13}{f }{  }{Gs}{  }{c }{  }{e }
+\noterow{n6}{n13}{  }{gs}{a }{h }{  }{d }{F }
+\noterow{k7}{   }{  }{A }{  }{C }{D }{  }{  }
+\noterow{n7}{   }{Gs}{  }{H }{  }{  }{E }{  } \hline
+\multicolumn{2}{l|}{Hangzat} & \\ \hline
+\multicolumn{2}{l|}{Hármas} &
+\chord{A}{m} & \chord{H}{O} & \chord{C}{+} & \chord{D}{m} & \chord{E}{  } & \chord{F}{  } & \chord{Gs}{O} \\[0.5ex]
+\multicolumn{2}{l|}{Négyes} &
+\chord{A}{mmaj7} & \chord{H}{o} & \chord{C}{maj7(5s)} & \chord{D}{m7} & \chord{E}{7} & \chord{F}{maj7} & \chord{Gs}{O} \\[0.5ex]
+\multicolumn{2}{l|}{Ötös} &
+\chord{A}{mmaj9} & \chord{H}{o9b} & \chord{C}{maj9(5s)} & \chord{D}{m9} & \chord{E}{9b} & \chord{F}{maj9s} & \chord{Gs}{O9b} \\[0.5ex]
+\multicolumn{2}{l|}{Hatos} &
+\chord{A}{mmaj11} & \chord{H}{o11(9b)} & \chord{C}{maj11(5s)} & \chord{D}{m11s} & \chord{E}{11(9b)} & \chord{F}{maj11s(9s)} & \chord{Gs}{O11b(9b)} \\[0.5ex]
+\multicolumn{2}{l|}{Hetes} &
+\chord{A}{mmaj13b} & \chord{H}{o13(9b)} & \chord{C}{maj13(5s)} & \chord{D}{m13} & \chord{E}{13b(9b11b)} & \chord{F}{maj13(11s9s)} & \chord{Gs}{O13b(9b11b)} \\
+\end{tabular}
+\captionof{table}{A (harmonikus) moll skála fokaira épülő akkordok} 
+\label{fig:mollskalahangzatok}~\\\\\\
+\vspace*{\fill}
+\newpage
+\topskip0pt
+\vspace*{\fill}
+\begin{tabular}{ll|p{18mm}p{17mm}p{18mm}p{17mm}p{18mm}p{17mm}p{18mm}}
+\multicolumn{2}{l|}{Hangköz} & I & II & III & IV & V & VI & VII \\ \hline
+\noterow{p }{   }{A }{H }{C }{D }{E }{Fs}{Gs}
+\noterow{k2}{k9 }{  }{c }{  }{  }{  }{  }{a }
+\noterow{n2}{n9 }{h }{  }{d }{e }{fs}{gs}{  }
+\noterow{k3}{k10}{C }{D }{  }{  }{  }{A }{H }
+\noterow{n3}{n10}{  }{  }{E }{Fs}{Gs}{  }{c }
+\noterow{t4}{t11}{d }{e }{  }{  }{a }{h }{  }
+\noterow{b4}{b11}{  }{  }{fs}{gs}{  }{C }{D }
+\noterow{t5}{t12}{E }{Fs}{  }{A }{H }{  }{  }
+\noterow{k6}{k13}{  }{  }{Gs}{  }{c }{d }{e }
+\noterow{n6}{n13}{fs}{gs}{a }{h }{  }{  }{  }
+\noterow{k7}{   }{  }{A }{  }{C }{D }{E }{Fs}
+\noterow{n7}{   }{Gs}{  }{H }{  }{  }{  }{  } \hline
+\multicolumn{2}{l|}{Hangzat} & \\ \hline
+\multicolumn{2}{l|}{Hármas} &
+\chord{A}{m} & \chord{H}{m} & \chord{C}{+} & \chord{D}{  } & \chord{E}{  } & \chord{Fs}{O} & \chord{Gs}{O} \\[0.5ex]
+\multicolumn{2}{l|}{Négyes} &
+\chord{A}{mmaj7} & \chord{H}{m7} & \chord{C}{maj7(5s)} & \chord{D}{7} & \chord{E}{7} & \chord{Fs}{o} & \chord{Gs}{o} \\[0.5ex]
+\multicolumn{2}{l|}{Ötös} &
+\chord{A}{mmaj9} & \chord{H}{m9b} & \chord{C}{maj9(5s)} & \chord{D}{9} & \chord{E}{9} & \chord{Fs}{o9} & \chord{Gs}{o9b} \\[0.5ex]
+\multicolumn{2}{l|}{Hatos} &
+\chord{A}{mmaj11} & \chord{H}{m9b11} & \chord{C}{maj11s(5s)} & \chord{D}{11s} & \chord{E}{11} & \chord{Fs}{o11} & \chord{Gs}{o11b(9b)} \\[0.5ex]
+\multicolumn{2}{l|}{Hetes} &
+\chord{A}{mmaj13} & \chord{H}{m9b13} & \chord{C}{maj13(5s11s)} & \chord{D}{13(11s)} & \chord{E}{13b} & \chord{Fs}{o13b} & \chord{Gs}{o13b(9b11b)} \\
+\end{tabular}
+\captionof{table}{A melodikus moll skála fokaira épülő akkordok} 
+\label{fig:melodikusmollskalahangzatok}~\\\\\\
+
+\begin{tabular}{ll|p{18mm}p{17mm}p{18mm}p{17mm}p{18mm}p{17mm}p{18mm}}
+\multicolumn{2}{l|}{Hangköz} & I & II & III & IV & V & VI & VII \\ \hline
+\noterow{p }{   }{E }{F }{G }{A }{H }{C }{D }
+\noterow{k2}{k9 }{f }{  }{  }{  }{c }{  }{  }
+\noterow{n2}{n9 }{  }{g }{a }{h }{  }{d }{e }
+\noterow{k3}{k10}{G }{  }{  }{C }{D }{  }{F }
+\noterow{n3}{n10}{  }{A }{H }{  }{  }{E }{  }
+\noterow{t4}{t11}{a }{  }{c }{d }{e }{f }{g }
+\noterow{b4}{b11}{  }{h }{  }{  }{F }{  }{  }
+\noterow{t5}{t12}{H }{C }{D }{E }{  }{G }{A }
+\noterow{k6}{k13}{c }{  }{  }{f }{g }{  }{  }
+\noterow{n6}{n13}{  }{d }{e }{  }{  }{a }{h }
+\noterow{k7}{   }{D }{  }{F }{G }{A }{  }{C }
+\noterow{n7}{   }{  }{E }{  }{  }{  }{H }{  } \hline
+\multicolumn{2}{l|}{Hangzat} & \\ \hline
+\multicolumn{2}{l|}{Hármas} &
+\chord{E}{m} & \chord{F}{  } & \chord{G}{  } & \chord{A}{m} & \chord{H}{O} & \chord{C}{  } & \chord{D}{m} \\[0.5ex]
+\multicolumn{2}{l|}{Négyes} &
+\chord{E}{m7} & \chord{F}{maj7} & \chord{G}{7} & \chord{A}{m7} & \chord{H}{o} & \chord{C}{maj7} & \chord{D}{m7} \\[0.5ex]
+\multicolumn{2}{l|}{Ötös} &
+\chord{E}{m9b} & \chord{F}{maj9} & \chord{G}{9} & \chord{A}{m9} & \chord{H}{o9b} & \chord{C}{maj9} & \chord{D}{m9} \\[0.5ex]
+\multicolumn{2}{l|}{Hatos} &
+\chord{E}{m11b(9b)} & \chord{F}{maj11} & \chord{G}{11b} & \chord{A}{m11b} &  \chord{H}{o11b(9b)} & \chord{C}{maj11b} & \chord{D}{m11b} \\[0.5ex]
+\multicolumn{2}{l|}{Hetes} &
+\chord{E}{m13b(9b11b)} & \chord{F}{maj13} & \chord{G}{13(11b)} & \chord{A}{m13b(11b)} & \chord{H}{o13b(9b11b)} & \chord{C}{maj13(11b)} & \chord{D}{m13(11b)} \\
+\end{tabular}
+\captionof{table}{A fríg skála fokaira épülő akkordok} 
+\label{fig:frigskalahangzatok}
+\vspace*{\fill}
+\end{document}

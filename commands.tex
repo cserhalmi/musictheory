@@ -21,15 +21,63 @@
   \FPeval{\modulo}{trunc(#1-(#2*trunc(#1/#2,0)),0)}%
 }%
 
+\newcommand{\key}[1]{%
+  \IfSubStr{#1}{b}{%
+    \StrSubstitute{#1}{b}{}[\keya]%
+    \rmfamily{\small\keya}\raisebox{0.7ex}{\small$\flat$}%
+  }{%
+    \IfSubStr{#1}{s}{%
+      \StrSubstitute{#1}{s}{}[\keya]%
+      \rmfamily{\small\keya}\raisebox{0.7ex}{\small$\sharp$}%
+    }{%
+      \rmfamily{\small#1}\normalfont%
+    }%
+  }%
+}%
+
+\newcommand{\chord}[2]{%
+  \StrSubstitute{#2}{b}{$\flat$}[\uida]%
+  \StrSubstitute{\uida}{s}{$\sharp$}[\uidb]%
+  \StrSubstitute{\uidb}{o}{\O}[\uidc]%
+  \key{#1}%
+  \IfSubStr{\uidc}{mmaj}{%
+    \StrSubstitute{\uidc}{mmaj}{maj}[\uidd]%
+    \raisebox{-0.4ex}{\scriptsize m}\hspace*{-0.5ex}$\backslash$\hspace*{-0.6ex}\raisebox{0.8ex}{\sffamily\scriptsize\uidd}%
+  }{%
+    \IfSubStr{\uidc}{maj}{%
+      \raisebox{0.8ex}{\sffamily\scriptsize\uidc}%
+    }{%
+      \IfSubStr{\uidc}{m}{%
+        \StrSubstitute{\uidc}{m}{}[\uidd]%
+        \raisebox{-0.4ex}{\scriptsize m}\hspace*{-1.3ex}\raisebox{0.8ex}{\sffamily\scriptsize\uidd}%
+      }{%
+        \raisebox{0.8ex}{\sffamily\scriptsize\uidc}%
+      }%
+    }%
+  }%
+}%
+
 \newcommand{\note}[1]{%
   \FPmodulo{#1}{12}%
   \FPeval{\noteposition}{trunc(\modulo,0)}%
-  \substring[v]{CCDDEFFGGAAH}{\noteposition}{\noteposition}%
-  \IfEq{\noteposition}{2}{$^\#$}{%
-    \IfEq{\noteposition}{4}{$^\#$}{%
-      \IfEq{\noteposition}{7}{$^\#$}{%
-        \IfEq{\noteposition}{9}{$^\#$}{}%
-          \IfEq{\noteposition}{11}{$^\#$}{}}}}%
+  \rmfamily{\substring[v]{CCDDEFFGGAAH}{\noteposition}{\noteposition}}%
+  \IfEq{\noteposition}{2}{\hspace*{-0.2ex}\raisebox{0.9ex}{\small$\sharp$}}{%
+    \IfEq{\noteposition}{4}{\hspace*{-0.2ex}\raisebox{0.9ex}{\small$\sharp$}}{%
+      \IfEq{\noteposition}{7}{\hspace*{-0.2ex}\raisebox{0.9ex}{\small$\sharp$}}{%
+        \IfEq{\noteposition}{9}{\hspace*{-0.2ex}\raisebox{0.9ex}{\small$\sharp$}}{%
+          \IfEq{\noteposition}{11}{\hspace*{-0.2ex}\raisebox{0.9ex}{\small$\sharp$}{}}}}}}%
+  \ignorespaces%
+}%
+
+\newcommand{\snote}[1]{%
+  \FPmodulo{#1}{12}%
+  \FPeval{\noteposition}{trunc(\modulo,0)}%
+  \scriptsize\rmfamily{\substring[v]{CCDDEFFGGAAH}{\noteposition}{\noteposition}}%
+  \IfEq{\noteposition}{2}{\hspace*{-0.2ex}\raisebox{0.9ex}{\tiny$\sharp$}}{%
+    \IfEq{\noteposition}{4}{\hspace*{-0.2ex}\raisebox{0.9ex}{\tiny$\sharp$}}{%
+      \IfEq{\noteposition}{7}{\hspace*{-0.2ex}\raisebox{0.9ex}{\tiny$\sharp$}}{%
+        \IfEq{\noteposition}{9}{\hspace*{-0.2ex}\raisebox{0.9ex}{\tiny$\sharp$}}{%
+          \IfEq{\noteposition}{11}{\hspace*{-0.2ex}\raisebox{0.9ex}{\tiny$\sharp$}{}}}}}}%
   \ignorespaces%
 }%
 
@@ -38,15 +86,15 @@
   \FPmodulo{(\noteposition)}{12}%
   \FPeval{\noteposition}{trunc(\modulo,0)}%
   \substring[v]{EFFGGAAHCCDD}{\noteposition}{\noteposition}%
-  \IfEq{\noteposition}{3}{$^\#$}{%
-    \IfEq{\noteposition}{5}{$^\#$}{%
-      \IfEq{\noteposition}{7}{$^\#$}{%
-        \IfEq{\noteposition}{10}{$^\#$}{}%
-          \IfEq{\noteposition}{0}{$^\#$}{}}}}%
+  \IfEq{\noteposition}{3}{$^\sharp$}{%
+    \IfEq{\noteposition}{5}{$^\sharp$}{%
+      \IfEq{\noteposition}{7}{$^\sharp$}{%
+        \IfEq{\noteposition}{10}{$^\sharp$}{}%
+          \IfEq{\noteposition}{0}{$^\sharp$}{}}}}%
   \ignorespaces%
 }%
 
-\newcommand{\chordcircle}[2]{%
+\newcommand{\chordcircle}[3]{%
   \begin{pspicture}(3.5cm,3.5cm)%
   \def\cx{0}%
   \def\cy{5}%
@@ -73,14 +121,13 @@
       }%
       \rput{-\i}(\cx,\cy){%
         \rput{\i}(\octave,0){%
-          \textbf{\tiny{\note{\z}}}%
+          {\snote{\z}}%
         }%
       }%
     }%
   }%
-  \normalfont{%
-  \textbf{%
-  \rput(\cx,\cy){$#2$}}}%
+  %\normalfont{%
+  \rput(\cx,\cy){\chord{#2}{#3}}%
   \end{pspicture}%
   \hspace*{8mm}%
   \vspace*{0.3mm}%
@@ -140,6 +187,10 @@
 
 \newcommand{\fretboard}[3]%
 {%
+  \ifthenelse{\equal{#1}{}}{}{%
+    \ifthenelse{\equal{#2}{}}{%
+      #1\\%
+    }{}}%
   \begin{pspicture}(\linewidth,2.5cm)%
   \def\frets{16}%
   \def\dx{1.0}%
@@ -200,10 +251,7 @@
   }%
   \end{pspicture}~\\%
   \ifthenelse{\equal{#1}{}}{}{%
-    \ifthenelse{\equal{#2}{}}{%
-      #1%
-      \vspace{0.2cm}~\\%
-    }{%
+    \ifthenelse{\equal{#2}{}}{}{%
       \vspace{-0.8cm}%
       \captionof{figure}{#1}%
       \label{#2}%
@@ -215,3 +263,27 @@
 \newcommand{\ideasubsection}[1]{%
   \subsection*{\includegraphics[width=5mm]{./images/idea.pdf}~~#1}
 }
+
+% note shortcuts
+%\def\A{\key{A}}
+%\def\H{\key{H}}
+%\def\C{\key{C}}
+%\def\D{\key{D}}
+%\def\E{\key{E}}
+%\def\F{\key{F}}
+%\def\G{\key{G}}
+%\def\As{\key{As}}
+%\def\Cs{\key{Cs}}
+%\def\Ds{\key{Ds}}
+%\def\Fs{\key{Fs}}
+%\def\Gs{\key{Gs}}
+%\def\Ab{\key{Ab}}
+%\def\Bb{\key{Bb}}
+%\def\Db{\key{Db}}
+%\def\Eb{\key{Eb}}
+%\def\Gb{\key{Gb}}
+
+%chord shortcuts
+%\def\Amaj{\chord{A}{}}
+%\def\Amin{\chord{A}{m}}
+
