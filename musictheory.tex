@@ -9,9 +9,11 @@
 \tableofcontents
 
 \clearpage
+
 \section*{Bevezetés}
 \label{sec:bevezetes}
 \input{./introduction.tex}
+
 
 \section{Hangok, hangközök}
 \label{sec:hangokhangkozok}
@@ -19,7 +21,7 @@
 
 \section{Skálák}
 \label{sec:skalak}
-\input{./scales.tex}
+\input{./scales.tex} 
 
 \section{Akkordok}
 \label{sec:akkordok}
@@ -37,33 +39,28 @@
 \label{sec:alteracio}
 \input{./scalealteration.tex}
 
-\clearpage
 \section{Példák}
 \label{sec:peldak}
 \input{./ex_harmony.tex}
 
 \clearpage
-\phantomsection
+\phantomsection\addcontentsline{toc}{section}{\listfigurename}
 \label{sec:abrajegyzek}
-\addcontentsline{toc}{section}{\listfigurename}
 \listoffigures
 
 \clearpage
-\phantomsection
+\phantomsection\addcontentsline{toc}{section}{\listtablename}
 \label{sec:tablajegyzek}
-\addcontentsline{toc}{section}{\listtablename}
 \listoftables
 
 \clearpage
-\phantomsection
+\phantomsection\addcontentsline{toc}{section}{\indexname}
 \label{sec:targymutato}
-\addcontentsline{toc}{section}{\indexname}
 \printindex
 
 \clearpage
-\phantomsection
+\phantomsection\addcontentsline{toc}{section}{\appendixname}
 \label{sec:melleklet}
-\addcontentsline{toc}{section}{\appendixname}
 \input{./appendix.tex}
 
 \end{document}

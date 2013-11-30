@@ -21,77 +21,86 @@
   \FPeval{\modulo}{trunc(#1-(#2*trunc(#1/#2,0)),0)}%
 }%
 
-\newcommand{\key}[1]{%
-  \IfSubStr{#1}{b}{%
-    \StrSubstitute{#1}{b}{}[\keya]%
-    \rmfamily{\small\keya}\raisebox{0.7ex}{\small$\flat$}%
-  }{%
-    \IfSubStr{#1}{s}{%
-      \StrSubstitute{#1}{s}{}[\keya]%
-      \rmfamily{\small\keya}\raisebox{0.7ex}{\small$\sharp$}%
-    }{%
-      \rmfamily{\small#1}\normalfont%
-    }%
-  }%
+\newcommand{\uind}[1]{%
+  \raisebox{0.7ex}{{\scalefont{0.7}#1}}%
 }%
 
-\newcommand{\chord}[2]{%
-  \StrSubstitute{#2}{b}{$\flat$}[\uida]%
-  \StrSubstitute{\uida}{s}{$\sharp$}[\uidb]%
-  \StrSubstitute{\uidb}{o}{\O}[\uidc]%
-  \key{#1}%
-  \IfSubStr{\uidc}{mmaj}{%
-    \StrSubstitute{\uidc}{mmaj}{maj}[\uidd]%
-    \raisebox{-0.4ex}{\scriptsize m}\hspace*{-0.5ex}$\backslash$\hspace*{-0.6ex}\raisebox{0.8ex}{\sffamily\scriptsize\uidd}%
+\newcommand{\lind}[1]{%
+  \raisebox{-0.4ex}{{\scalefont{0.7}#1}}%
+}%
+
+\newcommand{\notestr}[1]{%
+  \IfDecimal{#1}{%
+    \FPmodulo{#1}{12}%
+    \FPeval{\noteposition}{trunc(\modulo,0)}%
+    \substring[v]{CCDDEFFGGAAH}{\noteposition}{\noteposition}%
+    \IfEq{\noteposition}{2}{\uind{$\sharp$}}{%
+      \IfEq{\noteposition}{4}{\uind{$\sharp$}}{%
+        \IfEq{\noteposition}{7}{\uind{$\sharp$}}{%
+          \IfEq{\noteposition}{9}{\uind{$\sharp$}}{%
+            \IfEq{\noteposition}{11}{\uind{$\sharp$}}{}}}}}%
   }{%
-    \IfSubStr{\uidc}{maj}{%
-      \raisebox{0.8ex}{\sffamily\scriptsize\uidc}%
+    \IfSubStr{#1}{b}{%
+      \StrSubstitute{#1}{b}{}[\keya]%
+      \keya\uind{$\flat$}%
     }{%
-      \IfSubStr{\uidc}{m}{%
-        \StrSubstitute{\uidc}{m}{}[\uidd]%
-        \raisebox{-0.4ex}{\scriptsize m}\hspace*{-1.3ex}\raisebox{0.8ex}{\sffamily\scriptsize\uidd}%
-      }{%
-        \raisebox{0.8ex}{\sffamily\scriptsize\uidc}%
-      }%
+      \IfSubStr{#1}{s}{%
+        \StrSubstitute{#1}{s}{}[\keya]%
+        \keya\uind{$\sharp$}%
+      }{#1}%
     }%
   }%
 }%
 
 \newcommand{\note}[1]{%
-  \FPmodulo{#1}{12}%
-  \FPeval{\noteposition}{trunc(\modulo,0)}%
-  \rmfamily{\substring[v]{CCDDEFFGGAAH}{\noteposition}{\noteposition}}%
-  \IfEq{\noteposition}{2}{\hspace*{-0.2ex}\raisebox{0.9ex}{\small$\sharp$}}{%
-    \IfEq{\noteposition}{4}{\hspace*{-0.2ex}\raisebox{0.9ex}{\small$\sharp$}}{%
-      \IfEq{\noteposition}{7}{\hspace*{-0.2ex}\raisebox{0.9ex}{\small$\sharp$}}{%
-        \IfEq{\noteposition}{9}{\hspace*{-0.2ex}\raisebox{0.9ex}{\small$\sharp$}}{%
-          \IfEq{\noteposition}{11}{\hspace*{-0.2ex}\raisebox{0.9ex}{\small$\sharp$}{}}}}}}%
-  \ignorespaces%
+  \textbf{\notestr{#1}}%
 }%
 
 \newcommand{\snote}[1]{%
-  \FPmodulo{#1}{12}%
-  \FPeval{\noteposition}{trunc(\modulo,0)}%
-  \scriptsize\rmfamily{\substring[v]{CCDDEFFGGAAH}{\noteposition}{\noteposition}}%
-  \IfEq{\noteposition}{2}{\hspace*{-0.2ex}\raisebox{0.9ex}{\tiny$\sharp$}}{%
-    \IfEq{\noteposition}{4}{\hspace*{-0.2ex}\raisebox{0.9ex}{\tiny$\sharp$}}{%
-      \IfEq{\noteposition}{7}{\hspace*{-0.2ex}\raisebox{0.9ex}{\tiny$\sharp$}}{%
-        \IfEq{\noteposition}{9}{\hspace*{-0.2ex}\raisebox{0.9ex}{\tiny$\sharp$}}{%
-          \IfEq{\noteposition}{11}{\hspace*{-0.2ex}\raisebox{0.9ex}{\tiny$\sharp$}{}}}}}}%
-  \ignorespaces%
+  {%
+    \scalefont{0.6}\notestr{#1}%
+  }%
 }%
 
 \newcommand{\fretnote}[2]{%
-  \FPeval{\noteposition}{trunc(#2 + #1*5 - trunc(#1/4,0) + 1,0)}%
-  \FPmodulo{(\noteposition)}{12}%
-  \FPeval{\noteposition}{trunc(\modulo,0)}%
-  \substring[v]{EFFGGAAHCCDD}{\noteposition}{\noteposition}%
-  \IfEq{\noteposition}{3}{$^\sharp$}{%
-    \IfEq{\noteposition}{5}{$^\sharp$}{%
-      \IfEq{\noteposition}{7}{$^\sharp$}{%
-        \IfEq{\noteposition}{10}{$^\sharp$}{}%
-          \IfEq{\noteposition}{0}{$^\sharp$}{}}}}%
-  \ignorespaces%
+  \IfDecimal{#1}{%
+    \IfDecimal{#2}{%
+      \FPeval{\noteposition}{trunc(#2 + #1*5 - trunc(#1/4,0) + 5,0)}%
+      \snote{\noteposition}}{}}{}%
+}%
+
+\newcommand{\key}[1]{%
+  \textbf{\notestr{\ignorespaces#1\ignorespaces}}%
+}%
+
+\newcommand{\chord}[1]{%
+  \StrMid{#1}{2}{2}[\secondchar]%
+  \IfSubStr{bs}{\secondchar}{\StrLeft{#1}{2}[\keynote]}{\StrLeft{#1}{1}[\keynote]}%
+  \StrBehind{#1}{\keynote}[\chordid]
+  \key{\keynote}%
+  \StrSubstitute{\chordid}{b}{$\flat$}[\uida]%
+  \StrSubstitute{\uida}{s}{$\sharp$}[\uidb]%
+  \StrSubstitute{\uidb}{o}{\O}[\uidc]%
+  \IfSubStr{\uidc}{mmaj}{%
+    \StrSubstitute{\uidc}{mmaj}{maj}[\uidd]%
+    \lind{m}\hspace*{-0.5ex}$\backslash$\hspace*{-0.5ex}\uind{\uidd}%
+  }{%
+    \IfSubStr{\uidc}{maj}{%
+      \uind{\uidc}%
+    }{%
+      \IfSubStr{\uidc}{m}{%
+        \StrSubstitute{\uidc}{m}{}[\uidd]%
+        \IfStrEq{\uidd}{}{\lind{m}}%
+        {\lind{m}\hspace*{-1.3ex}\uind{\uidd}}%
+      }{%
+        \uind{\uidc}%
+      }%
+    }%
+  }%
+}%
+
+\newcommand{\scale}[2]{%
+  \chord{#1}{#2}%
 }%
 
 \newcommand{\chordcircle}[3]{%
@@ -126,7 +135,6 @@
       }%
     }%
   }%
-  %\normalfont{%
   \rput(\cx,\cy){\chord{#2}{#3}}%
   \end{pspicture}%
   \hspace*{8mm}%
@@ -141,7 +149,7 @@
   \FPeval{\dh}{\h/5}%
   \FPeval{\nx}{\w/2}%
   \FPeval{\ny}{\h+\dh/2}%
-  \rput(\nx,\ny){$#1$}%
+  \rput(\nx,\ny){\chord{#1}}%
   \FPeval{\nx}{\dw/-0.3}%
   \FPeval{\ny}{\dh*5}%
   \rput(\nx,\ny){\small $#2$}%
@@ -173,7 +181,7 @@
         \IfEq{\thestring}{X}{%
           \rput(\xpos,\ypos){X}%
         }{%
-          \rput(\xpos,\ypos){\small\textbf{\thestring}\tiny\fretnote{\st}{\fr}}%
+          \rput(\xpos,\ypos){\small\textbf{\thestring}\fretnote{\st}{\fr}}%
           \psline[linewidth=0.03](\xs,\yu)(\xe,\yu)%
           \psline[linewidth=0.03](\xs,\yl)(\xe,\yl)%
         }%
@@ -189,7 +197,7 @@
 {%
   \ifthenelse{\equal{#1}{}}{}{%
     \ifthenelse{\equal{#2}{}}{%
-      #1\\%
+      \vspace*{1mm}#1~\\\vspace*{1mm}%
     }{}}%
   \begin{pspicture}(\linewidth,2.5cm)%
   \def\frets{16}%
@@ -229,21 +237,21 @@
   \multido{\i=0+1}{\notes}%
   {%
     \FPmodulo{(\i)}{\frets}%
-	\FPeval{\disp}{trunc(\frets*(5-trunc(\i/\frets,0)) + \modulo + 1,0)}%
+    \FPeval{\disp}{trunc(\frets*(5-trunc(\i/\frets,0)) + \modulo + 1,0)}%
     \substring[q]{#3}{\disp}{\disp}%
     \FPmodulo{(\i)}{\frets}%
     \IfEq{\thestring}{.}{}%
     {%
-	  \FPeval{\fre}{\modulo}%
-	  \FPeval{\stri}{trunc(\i/\frets,0)}%
-	  \FPeval{\xc}{\dx*\fre + 0.05}%
-	  \FPeval{\yc}{\dy*(\stri - \dy/2)}%
+      \FPeval{\fre}{\modulo}%
+      \FPeval{\stri}{trunc(\i/\frets,0)}%
+      \FPeval{\xc}{\dx*\fre + 0.05}%
+      \FPeval{\yc}{\dy*(\stri - \dy/2)}%
       \rput[tl](\xc,\yc){%
         \psframebox[fillstyle=solid,linecolor=white,framesep=0]{%
           \IfEq{\thestring}{x}{%
-            \fretnote{\stri}{\fre}
+            \fretnote{\stri}{\fre}%
           }{%
-            \small\textbf{\thestring}\tiny\fretnote{\stri}{\fre}%
+            \small\textbf{\thestring}\fretnote{\stri}{\fre}%
           }%
         }%
       }%
@@ -261,29 +269,10 @@
 }%
 
 \newcommand{\ideasubsection}[1]{%
-  \subsection*{\includegraphics[width=5mm]{./images/idea.pdf}~~#1}
+  \subsection*{\raisebox{-0.5ex}{\includegraphics[width=5mm]{./images/idea.pdf}}~~#1}
 }
 
-% note shortcuts
-%\def\A{\key{A}}
-%\def\H{\key{H}}
-%\def\C{\key{C}}
-%\def\D{\key{D}}
-%\def\E{\key{E}}
-%\def\F{\key{F}}
-%\def\G{\key{G}}
-%\def\As{\key{As}}
-%\def\Cs{\key{Cs}}
-%\def\Ds{\key{Ds}}
-%\def\Fs{\key{Fs}}
-%\def\Gs{\key{Gs}}
-%\def\Ab{\key{Ab}}
-%\def\Bb{\key{Bb}}
-%\def\Db{\key{Db}}
-%\def\Eb{\key{Eb}}
-%\def\Gb{\key{Gb}}
-
 %chord shortcuts
-%\def\Amaj{\chord{A}{}}
-%\def\Amin{\chord{A}{m}}
+\def\Amaj{\chord{A}}
+\def\Amin{\chord{Am}}
 
