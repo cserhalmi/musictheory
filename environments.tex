@@ -1,10 +1,17 @@
 % packed itemization
-\newenvironment{pitemize}%
+\newenvironment{pitemize}[1][]%
 {%
+  \ifx&#1&%
+  \def\arg{}%
+  \else%
+  %\def\lab{tab}%
+  \def\arg{\captionof{table}{#1}\label{tab:tab\arabic{table}}}%
+  \fi%
   \begin{longtable}[l]{lllllllllllllllllll}%
-}%
-{%
+}{%
   \end{longtable}%
+  \addtocounter{table}{-1}%
+  \arg%
 }%
 
 % packed enumeration
@@ -14,8 +21,7 @@
   \setlength{\itemsep}{1pt}%
   \setlength{\parskip}{0pt}%
   \setlength{\parsep}{0pt}%
-}%
-{%
+}{%
   \end{enumerate} %
 }%
 
