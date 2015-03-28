@@ -10,7 +10,7 @@ TEMPORARY+=$(patsubst %,appendix/%,$(TEMPORARY))
 all: musictheory.pdf
 
 clean:
-	@echo cleaning up $(TEMPORARY)...
+	@echo cleaning up ...
 	@-rm -f $(TEMPORARY)
 
 musictheory.pdf: $(TARGETS) $(DEPS)
